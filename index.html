@@ -300,19 +300,19 @@
     <script>
         // Define the correct answers and explanations
         const correctAnswers = {
-            q1: 'e', // Olahraga menghasilkan letih, makan menghasilkan energi.
+            q1: 'b', // Olahraga menghasilkan letih, makan menghasilkan kenyang.
             q2: 'e', // Nasi dibuat dari beras, kopi dibuat dari biji kopi (bahan baku dan hasil olahan).
             q3: 'c', // Informasi yang pasti dari teks adalah setiap tim harus memiliki sebelas pemain.
             q4: 'b', // Ini adalah kesimpulan logis dari dua premis yang diberikan (silogisme).
-            q5: 'a'  // Berdasarkan urutan posisi yang dijelaskan.
+            q5: 'e'  // Berdasarkan urutan posisi yang dijelaskan.
         };
 
         const explanations = {
-            q1: '<strong>Penjelasan:</strong> Hubungan antara "Olahraga" dan "Letih" adalah sebab-akibat, di mana olahraga dapat menyebabkan letih. Demikian pula, "Makan" dapat menghasilkan "Energi".',
+            q1: '<strong>Penjelasan:</strong> Hubungan antara "Olahraga" dan "Letih" adalah sebab-akibat, di mana olahraga dapat menyebabkan letih. Demikian pula, "Makan" dapat menyebabkan rasa "Kenyang".',
             q2: '<strong>Penjelasan:</strong> Hubungan antara "Nasi" dan "Beras" adalah produk dan bahan baku. Nasi dibuat dari beras. Hubungan yang setara adalah "Kopi" dibuat dari "biji kopi".',
             q3: '<strong>Penjelasan:</strong> Informasi yang paling pasti dan dapat disimpulkan langsung dari teks adalah bahwa "Setiap tim sepak bola harus memiliki sebelas pemain di lapangan", sehingga Tim Garuda dan Tim Rajawali masing-masing menurunkan sebelas pemain.',
             q4: '<strong>Penjelasan:</strong> Ini adalah bentuk silogisme. Premis 1: Semua A adalah B (Pejabat pelatihan antikorupsi adalah individu berintegritas). Premis 2: Beberapa B adalah C (Beberapa individu berintegritas adalah pembuat kebijakan yang adil). Kesimpulan yang valid adalah Beberapa A adalah C (Beberapa pejabat yang mengikuti pelatihan antikorupsi adalah pembuat kebijakan yang adil).',
-            q5: '<strong>Penjelasan:</strong> Mari kita urutkan posisinya berdasarkan petunjuk:\n1. Bima dekat dengan Maya.\n2. Reza dekat dengan Sinta.\n3. Dina mengatur permainan dari antara Maya dan Sinta.\n4. Aldo dekat dengan Bima.\n\nDari sini, kita bisa membentuk urutan parsial:\nAldo - Bima - Maya - Dina - Sinta - Reza\n\nKarena ada 7 peserta dan formasi melingkar, Putri adalah peserta terakhir. Dina berada di antara Maya dan Sinta. Jika kita susun melingkar, Putri akan berada di antara Maya dan Dina, atau Dina dan Reza, atau Reza dan Aldo, dst. Namun, dengan Dina sebagai "trainer utama" yang "mengatur permainan dari antara Maya dan Sinta", ini menyiratkan Dina berada di antara mereka untuk memfasilitasi. Jika kita asumsikan urutan linear sebagian: Aldo-Bima-Maya-(Putri?)-Dina-(Putri?)-Sinta-Reza. Karena Dina mengatur antara Maya dan Sinta, dan Aldo dekat Bima, dan Bima dekat Maya, maka urutan yang paling logis adalah Aldo-Bima-Maya-Putri-Dina-Sinta-Reza. Jadi, Putri berada di antara Maya dan Dina.'
+            q5: '<strong>Penjelasan:</strong> Dengan 7 peserta dalam formasi melingkar, kita dapat menyusun posisi berdasarkan petunjuk:\n1. Bima dekat dengan Maya.\n2. Reza dekat dengan Sinta.\n3. Dina mengatur permainan dari antara Maya dan Sinta (posisi strategis).\n4. Aldo dekat dengan Bima.\n\nJika Putri berada di antara Reza dan Aldo, maka urutan yang mungkin dalam lingkaran adalah: Dina - Sinta - Reza - Putri - Aldo - Bima - Maya. Dalam susunan ini, Putri berada di antara Reza dan Aldo.'
         };
 
         const quizForm = document.getElementById('quizForm');
@@ -333,7 +333,8 @@
 
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                alert("Waktu habis! Tes akan otomatis disubmit."); // Using alert for simplicity, consider a custom modal
+                // Using a custom modal for time's up instead of alert()
+                showModal("Waktu habis!", "Tes akan otomatis disubmit.");
                 quizForm.dispatchEvent(new Event('submit')); // Automatically submit the form
             } else {
                 timeLeft--;
@@ -346,6 +347,28 @@
             timeLeft = timeLimitInSeconds; // Reset time
             updateTimerDisplay(); // Update display immediately
             timerInterval = setInterval(updateTimerDisplay, 1000); // Start countdown
+        }
+
+        // Custom Modal Functions (replacing alert/confirm)
+        function showModal(title, message, onConfirm = null) {
+            const modalHtml = `
+                <div id="customModal" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
+                    <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
+                        <h3 class="text-lg font-semibold mb-4">${title}</h3>
+                        <p class="text-gray-700 mb-6">${message}</p>
+                        <div class="flex justify-end">
+                            <button id="modalCloseButton" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-200">
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            document.getElementById('modalCloseButton').addEventListener('click', () => {
+                document.getElementById('customModal').remove();
+                if (onConfirm) onConfirm();
+            });
         }
 
         // Initial call to start the timer when the page loads
@@ -390,7 +413,10 @@
                 } else {
                     // If no option is selected, still show the correct answer and explanation
                     const correctAnswer = correctAnswers[questionName];
-                    document.querySelector(`input[name="${questionName}"][value="${correctAnswer}"]`).nextElementSibling.classList.add('correct-answer');
+                    const correctOptionElement = document.querySelector(`input[name="${questionName}"][value="${correctAnswer}"]`);
+                    if (correctOptionElement) { // Ensure the element exists before trying to style
+                        correctOptionElement.nextElementSibling.classList.add('correct-answer');
+                    }
                     explanationDiv.innerHTML = explanations[questionName];
                     explanationDiv.classList.remove('hidden');
                 }
