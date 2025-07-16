@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tes TIU Kedinasan 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .timer-display {
+            background-color: #fef3c7; /* bg-amber-100 */
+            color: #b45309; /* text-amber-700 */
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid #fbbf24; /* border-amber-400 */
+        }
+        .question-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e0e0e0;
+        }
+        .question-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            border: 1px solid #d1d5db;
+        }
+        .options label:hover {
+            background-color: #eef2f7;
+            border-color: #93c5fd;
+        }
+        .options input[type="radio"]:checked + span {
+            background-color: #3b82f6;
+            color: #fff;
+            border-color: #3b82f6;
+        }
+        .options input[type="radio"] {
+            display: none;
+        }
+        .options input[type="radio"] + span {
+            display: block;
+            padding: 0.75rem;
+            border-radius: 6px;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            border: 1px solid #d1d5db;
+        }
+        .options input[type="radio"]:checked + span {
+            background-color: #3b82f6; /* bg-blue-500 */
+            color: #fff;
+            border-color: #3b82f6;
+        }
+        .submit-button {
+            background-color: #10b981; /* bg-emerald-500 */
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            border: none;
+            width: 100%;
+        }
+        .submit-button:hover {
+            background-color: #059669; /* bg-emerald-600 */
+            transform: translateY(-2px);
+        }
+        .submit-button:active {
+            transform: translateY(0);
+        }
+        .result-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #e0f2fe; /* bg-blue-100 */
+            border-radius: 8px;
+            border: 1px solid #93c5fd; /* border-blue-300 */
+            text-align: center;
+        }
+        .result-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e40af; /* text-blue-800 */
+            margin-bottom: 1rem;
+        }
+        .result-section p {
+            font-size: 1.125rem;
+            color: #1c508f; /* text-blue-700 */
+        }
+        .correct-answer {
+            background-color: #d1fae5; /* bg-green-100 */
+            border-color: #34d399; /* border-green-400 */
+        }
+        .wrong-answer {
+            background-color: #fee2e2; /* bg-red-100 */
+            border-color: #ef4444; /* border-red-500 */
+        }
+        .explanation {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+            padding-left: 1rem;
+            border-left: 3px solid #ccc;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container">
+        <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Simulasi Tes TIU Kedinasan 2025</h1>
+        <p class="text-center text-gray-600 mb-8">Jawablah pertanyaan-pertanyaan di bawah ini dengan memilih opsi yang paling tepat.</p>
+
+        <!-- Timer Display -->
+        <div id="timer" class="timer-display">
+            Waktu Tersisa: 10:00
+        </div>
+
+        <form id="quizForm">
+            <!-- Soal 1 -->
+            <div class="question-card">
+                <p class="question-title">SOAL 1:</p>
+                <p class="mb-4">Olahraga : Letih = Makan : ...</p>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q1" value="a">
+                        <span>a. Lapar</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="b">
+                        <span>b. Kenyang</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="c">
+                        <span>c. Gemuk</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="d">
+                        <span>d. Sehat</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q1" value="e">
+                        <span>e. Energi</span>
+                    </label>
+                </div>
+                <div id="explanation-q1" class="explanation hidden"></div>
+            </div>
+
+            <!-- Soal 2 -->
+            <div class="question-card">
+                <p class="question-title">SOAL 2:</p>
+                <p class="mb-4">Nasi dimasak menggunakan beras.<br>Hubungan objek yang setara dengan kalimat di atas adalah...</p>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q2" value="a">
+                        <span>a. Mobil dikendarai menggunakan bensin</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="b">
+                        <span>b. Komputer digunakan oleh programmer</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="c">
+                        <span>c. Kue dipotong dengan pisau</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="d">
+                        <span>d. Rumah dibangun di atas tanah</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q2" value="e">
+                        <span>e. Kopi dibuat dari biji kopi</span>
+                    </label>
+                </div>
+                <div id="explanation-q2" class="explanation hidden"></div>
+            </div>
+
+            <!-- Soal 3 -->
+            <div class="question-card">
+                <p class="question-title">SOAL 3:</p>
+                <p class="mb-4">Setiap tim sepak bola harus memiliki sebelas pemain di lapangan. Tim Garuda sedang bertanding di stadion utama melawan Tim Rajawali. Wasit memimpin pertandingan dengan baik dan pertandingan berjalan lancar.<br>Kesimpulan yang paling tepat adalah...</p>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q3" value="a">
+                        <span>a. Tim Garuda menurunkan pemain terbaiknya dalam pertandingan ini</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="b">
+                        <span>b. Tim Garuda dan Tim Rajawali bertanding dengan sportif di lapangan</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="c">
+                        <span>c. Tim Garuda dan Tim Rajawali masing-masing menurunkan sebelas pemain</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="d">
+                        <span>d. Tim Garuda bermain menyerang sejak awal pertandingan dimulai</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q3" value="e">
+                        <span>e. Tim Garuda mendapat dukungan penuh dari suporter di stadion</span>
+                    </label>
+                </div>
+                <div id="explanation-q3" class="explanation hidden"></div>
+            </div>
+
+            <!-- Soal 4 -->
+            <div class="question-card">
+                <p class="question-title">SOAL 4:</p>
+                <p class="mb-4">Semua pejabat yang mengikuti pelatihan antikorupsi adalah individu berintegritas. Beberapa individu berintegritas adalah pembuat kebijakan yang adil.<br>Kesimpulan yang paling tepat adalah...</p>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q4" value="a">
+                        <span>a. Semua pejabat yang mengikuti pelatihan antikorupsi adalah pembuat kebijakan yang adil.</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="b">
+                        <span>b. Beberapa pejabat yang mengikuti pelatihan antikorupsi adalah pembuat kebijakan yang adil.</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="c">
+                        <span>c. Semua pembuat kebijakan yang adil adalah pejabat yang mengikuti pelatihan antikorupsi.</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="d">
+                        <span>d. Tidak ada pejabat yang mengikuti pelatihan antikorupsi yang menjadi pembuat kebijakan yang adil.</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q4" value="e">
+                        <span>e. Beberapa pembuat kebijakan yang adil bukan pejabat yang mengikuti pelatihan antikorupsi.</span>
+                    </label>
+                </div>
+                <div id="explanation-q4" class="explanation hidden"></div>
+            </div>
+
+            <!-- Soal 5 -->
+            <div class="question-card">
+                <p class="question-title">SOAL 5:</p>
+                <p class="mb-4">Tujuh peserta pelatihan team building sedang bermain "Catch and Connect" dengan formasi melingkar. Bima yang merupakan supervisor marketing ingin berada dekat dengan Maya dari divisi keuangan, sama seperti Reza dari HRD yang bersikeras ingin berdekatan dengan Sinta dari divisi legal. Dina yang merupakan trainer utama dari ketujuh peserta tersebut meminta posisi khusus agar bisa mengatur permainan dari antara Maya dan Sinta. Aldo yang baru bergabung di perusahaan selalu berusaha dekat dengan mentornya, Bima. Di antara siapakah posisi Putri, staf magang terbaru, berada?</p>
+                <div class="options">
+                    <label>
+                        <input type="radio" name="q5" value="a">
+                        <span>a. Maya dan Dina</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="b">
+                        <span>b. Aldo dan Dina</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="c">
+                        <span>c. Sinta dan Reza</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="d">
+                        <span>d. Dina dan Reza</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="q5" value="e">
+                        <span>e. Reza dan Aldo</span>
+                    </label>
+                </div>
+                <div id="explanation-q5" class="explanation hidden"></div>
+            </div>
+
+            <button type="submit" class="submit-button">Selesai Tes</button>
+        </form>
+
+        <div id="result" class="result-section hidden">
+            <h2>Hasil Tes Anda</h2>
+            <p id="score"></p>
+            <button id="retakeButton" class="submit-button mt-4 bg-blue-500 hover:bg-blue-600">Ulangi Tes</button>
+        </div>
+    </div>
+
+    <script>
+        // Define the correct answers and explanations
+        const correctAnswers = {
+            q1: 'e', // Olahraga menghasilkan letih, makan menghasilkan energi.
+            q2: 'e', // Nasi dibuat dari beras, kopi dibuat dari biji kopi (bahan baku dan hasil olahan).
+            q3: 'c', // Informasi yang pasti dari teks adalah setiap tim harus memiliki sebelas pemain.
+            q4: 'b', // Ini adalah kesimpulan logis dari dua premis yang diberikan (silogisme).
+            q5: 'a'  // Berdasarkan urutan posisi yang dijelaskan.
+        };
+
+        const explanations = {
+            q1: '<strong>Penjelasan:</strong> Hubungan antara "Olahraga" dan "Letih" adalah sebab-akibat, di mana olahraga dapat menyebabkan letih. Demikian pula, "Makan" dapat menghasilkan "Energi".',
+            q2: '<strong>Penjelasan:</strong> Hubungan antara "Nasi" dan "Beras" adalah produk dan bahan baku. Nasi dibuat dari beras. Hubungan yang setara adalah "Kopi" dibuat dari "biji kopi".',
+            q3: '<strong>Penjelasan:</strong> Informasi yang paling pasti dan dapat disimpulkan langsung dari teks adalah bahwa "Setiap tim sepak bola harus memiliki sebelas pemain di lapangan", sehingga Tim Garuda dan Tim Rajawali masing-masing menurunkan sebelas pemain.',
+            q4: '<strong>Penjelasan:</strong> Ini adalah bentuk silogisme. Premis 1: Semua A adalah B (Pejabat pelatihan antikorupsi adalah individu berintegritas). Premis 2: Beberapa B adalah C (Beberapa individu berintegritas adalah pembuat kebijakan yang adil). Kesimpulan yang valid adalah Beberapa A adalah C (Beberapa pejabat yang mengikuti pelatihan antikorupsi adalah pembuat kebijakan yang adil).',
+            q5: '<strong>Penjelasan:</strong> Mari kita urutkan posisinya berdasarkan petunjuk:\n1. Bima dekat dengan Maya.\n2. Reza dekat dengan Sinta.\n3. Dina mengatur permainan dari antara Maya dan Sinta.\n4. Aldo dekat dengan Bima.\n\nDari sini, kita bisa membentuk urutan parsial:\nAldo - Bima - Maya - Dina - Sinta - Reza\n\nKarena ada 7 peserta dan formasi melingkar, Putri adalah peserta terakhir. Dina berada di antara Maya dan Sinta. Jika kita susun melingkar, Putri akan berada di antara Maya dan Dina, atau Dina dan Reza, atau Reza dan Aldo, dst. Namun, dengan Dina sebagai "trainer utama" yang "mengatur permainan dari antara Maya dan Sinta", ini menyiratkan Dina berada di antara mereka untuk memfasilitasi. Jika kita asumsikan urutan linear sebagian: Aldo-Bima-Maya-(Putri?)-Dina-(Putri?)-Sinta-Reza. Karena Dina mengatur antara Maya dan Sinta, dan Aldo dekat Bima, dan Bima dekat Maya, maka urutan yang paling logis adalah Aldo-Bima-Maya-Putri-Dina-Sinta-Reza. Jadi, Putri berada di antara Maya dan Dina.'
+        };
+
+        const quizForm = document.getElementById('quizForm');
+        const resultSection = document.getElementById('result');
+        const scoreDisplay = document.getElementById('score');
+        const retakeButton = document.getElementById('retakeButton');
+        const timerDisplay = document.getElementById('timer');
+
+        let timeLimitInSeconds = 10 * 60; // 10 minutes for the test
+        let timeLeft = timeLimitInSeconds;
+        let timerInterval;
+
+        // Function to update the timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `Waktu Tersisa: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Waktu habis! Tes akan otomatis disubmit."); // Using alert for simplicity, consider a custom modal
+                quizForm.dispatchEvent(new Event('submit')); // Automatically submit the form
+            } else {
+                timeLeft--;
+            }
+        }
+
+        // Function to start the timer
+        function startTimer() {
+            clearInterval(timerInterval); // Clear any existing timer
+            timeLeft = timeLimitInSeconds; // Reset time
+            updateTimerDisplay(); // Update display immediately
+            timerInterval = setInterval(updateTimerDisplay, 1000); // Start countdown
+        }
+
+        // Initial call to start the timer when the page loads
+        document.addEventListener('DOMContentLoaded', startTimer);
+
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearInterval(timerInterval); // Stop the timer when submitted
+            let score = 0;
+            let totalQuestions = 0;
+
+            // Loop through each question
+            for (let i = 1; i <= 5; i++) {
+                const questionName = `q${i}`;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                const explanationDiv = document.getElementById(`explanation-${questionName}`);
+                const optionsLabels = document.querySelectorAll(`input[name="${questionName}"] + span`);
+
+                // Reset previous styling and hide explanation
+                optionsLabels.forEach(label => {
+                    label.classList.remove('correct-answer', 'wrong-answer');
+                });
+                explanationDiv.classList.add('hidden');
+                explanationDiv.innerHTML = '';
+
+                if (selectedOption) {
+                    totalQuestions++;
+                    const userAnswer = selectedOption.value;
+                    const correctAnswer = correctAnswers[questionName];
+
+                    if (userAnswer === correctAnswer) {
+                        score++;
+                        selectedOption.nextElementSibling.classList.add('correct-answer');
+                    } else {
+                        selectedOption.nextElementSibling.classList.add('wrong-answer');
+                        // Highlight the correct answer
+                        document.querySelector(`input[name="${questionName}"][value="${correctAnswer}"]`).nextElementSibling.classList.add('correct-answer');
+                    }
+                    // Show explanation for each question
+                    explanationDiv.innerHTML = explanations[questionName];
+                    explanationDiv.classList.remove('hidden');
+                } else {
+                    // If no option is selected, still show the correct answer and explanation
+                    const correctAnswer = correctAnswers[questionName];
+                    document.querySelector(`input[name="${questionName}"][value="${correctAnswer}"]`).nextElementSibling.classList.add('correct-answer');
+                    explanationDiv.innerHTML = explanations[questionName];
+                    explanationDiv.classList.remove('hidden');
+                }
+            }
+
+            scoreDisplay.textContent = `Anda menjawab ${score} dari ${totalQuestions} pertanyaan dengan benar.`;
+            resultSection.classList.remove('hidden');
+            quizForm.scrollIntoView({ behavior: 'smooth', block: 'end' }); // Scroll to results
+        });
+
+        retakeButton.addEventListener('click', function() {
+            quizForm.reset(); // Reset all radio buttons
+            resultSection.classList.add('hidden'); // Hide results
+            // Remove all styling and hide explanations
+            for (let i = 1; i <= 5; i++) {
+                const questionName = `q${i}`;
+                const optionsLabels = document.querySelectorAll(`input[name="${questionName}"] + span`);
+                optionsLabels.forEach(label => {
+                    label.classList.remove('correct-answer', 'wrong-answer');
+                });
+                const explanationDiv = document.getElementById(`explanation-${questionName}`);
+                explanationDiv.classList.add('hidden');
+                explanationDiv.innerHTML = '';
+            }
+            startTimer(); // Restart the timer
+            quizForm.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Scroll back to top
+        });
+    </script>
+</body>
+</html>
